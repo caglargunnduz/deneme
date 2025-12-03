@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler - Kurumsal Panel</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: #2c3e50;
+            color: white;
+            padding: 24px 0;
+            z-index: 1000;
+        }
+
+        .logo-area {
+            padding: 0 24px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .logo-area h2 {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link i {
+            width: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 24px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 28px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-left h1 {
+            font-size: 26px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .header-left p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-details h4 {
+            font-size: 15px;
+            color: #2c3e50;
+        }
+
+        .user-details p {
+            font-size: 13px;
+            color: #95a5a6;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 12px;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            border: 1px solid #dfe6e9;
+            background: white;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-tab.active {
+            background: #2c3e50;
+            color: white;
+            border-color: #2c3e50;
+        }
+
+        .btn-new {
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .project-menu {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .project-progress {
+            margin-bottom: 16px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .progress-label {
+            color: #7f8c8d;
+        }
+
+        .progress-value {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #f1f3f5;
+        }
+
+        .project-team {
+            display: flex;
+            align-items: center;
+        }
+
+        .team-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: -8px;
+        }
+
+        .team-avatar:first-child {
+            margin-left: 0;
+        }
+
+        .project-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-area">
+            <h2><i class="fas fa-building"></i> Şirket Adı</h2>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analitik.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analitik</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="kullanicilar.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Kullanıcılar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="projeler.html" class="nav-link active">
+                    <i class="fas fa-folder"></i>
+                    <span>Projeler</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="raporlar.html" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Raporlar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="ayarlar.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Ayarlar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="login-form.html" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Çıkış Yap</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Projeler</h1>
+                <p>Tüm projelerinizi yönetin</p>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">ÇG</div>
+                <div class="user-details">
+                    <h4>Çağlar Gündüz</h4>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-tabs">
+                <button class="filter-tab active">Tümü (12)</button>
+                <button class="filter-tab">Aktif (7)</button>
+                <button class="filter-tab">Beklemede (3)</button>
+                <button class="filter-tab">Tamamlanan (2)</button>
+            </div>
+            <button class="btn-new">
+                <i class="fas fa-plus"></i>
+                Yeni Proje
+            </button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon" style="background: #ebf5fb; color: #3498db;">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <button class="project-menu">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <h3 class="project-title">E-Ticaret Platformu</h3>
+                <p class="project-desc">Modern ve kullanıcı dostu bir e-ticaret web sitesi geliştirme projesi</p>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">İlerleme</span>
+                        <span class="progress-value">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background: #3498db;"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar" style="background: #3498db;">AY</div>
+                        <div class="team-avatar" style="background: #2ecc71;">MK</div>
+                        <div class="team-avatar" style="background: #f39c12;">ZK</div>
+                    </div>
+                    <span class="project-status status-active">Aktif</span>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon" style="background: #eafaf1; color: #2ecc71;">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <button class="project-menu">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <h3 class="project-title">Mobil Uygulama</h3>
+                <p class="project-desc">iOS ve Android için native mobil uygulama geliştirme</p>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">İlerleme</span>
+                        <span class="progress-value">45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%; background: #2ecc71;"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar" style="background: #e74c3c;">AD</div>
+                        <div class="team-avatar" style="background: #9b59b6;">FŞ</div>
+                    </div>
+                    <span class="project-status status-active">Aktif</span>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon" style="background: #fef5e7; color: #f39c12;">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <button class="project-menu">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <h3 class="project-title">Dashboard Sistemi</h3>
+                <p class="project-desc">Kurumsal analitik ve raporlama dashboard'u</p>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">İlerleme</span>
+                        <span class="progress-value">90%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%; background: #f39c12;"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar" style="background: #1abc9c;">AÇ</div>
+                        <div class="team-avatar" style="background: #3498db;">AY</div>
+                    </div>
+                    <span class="project-status status-active">Aktif</span>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon" style="background: #fadbd8; color: #e74c3c;">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <button class="project-menu">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <h3 class="project-title">Veritabanı Migrasyonu</h3>
+                <p class="project-desc">Eski sistemden yeni altyapıya veri taşıma projesi</p>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">İlerleme</span>
+                        <span class="progress-value">30%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%; background: #e74c3c;"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar" style="background: #f39c12;">MK</div>
+                    </div>
+                    <span class="project-status status-pending">Beklemede</span>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon" style="background: #e8daef; color: #9b59b6;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <button class="project-menu">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <h3 class="project-title">Güvenlik Güncellemesi</h3>
+                <p class="project-desc">Sistem güvenlik açıklarının kapatılması ve güncellemeler</p>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">İlerleme</span>
+                        <span class="progress-value">100%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%; background: #9b59b6;"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar" style="background: #2ecc71;">ZK</div>
+                        <div class="team-avatar" style="background: #e74c3c;">AD</div>
+                    </div>
+                    <span class="project-status status-completed">Tamamlandı</span>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon" style="background: #d1f2eb; color: #1abc9c;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <button class="project-menu">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                <h3 class="project-title">Pazarlama Kampanyası</h3>
+                <p class="project-desc">Dijital pazarlama ve sosyal medya stratejisi</p>
+                <div class="project-progress">
+                    <div class="progress-header">
+                        <span class="progress-label">İlerleme</span>
+                        <span class="progress-value">60%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%; background: #1abc9c;"></div>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="project-team">
+                        <div class="team-avatar" style="background: #9b59b6;">FŞ</div>
+                        <div class="team-avatar" style="background: #1abc9c;">AÇ</div>
+                        <div class="team-avatar" style="background: #3498db;">AY</div>
+                    </div>
+                    <span class="project-status status-active">Aktif</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
